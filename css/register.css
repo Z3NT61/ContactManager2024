@@ -1,0 +1,16 @@
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register label {
+    padding-top: 10px;
+}
+
+.register {
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+}
