@@ -10,7 +10,6 @@
 }
 
 .login {
-    height: 140px;
     display: flex;
     flex-direction: column;
 }
