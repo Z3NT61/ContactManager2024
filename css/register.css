@@ -10,7 +10,6 @@
 }
 
 .register {
-    height: 240px;
     display: flex;
     flex-direction: column;
 }
