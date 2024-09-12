@@ -47,5 +47,7 @@ else{
 
 function returnWithInfo($FirstName, $LastName, $id){
     #to do
+    $retValue = '{"id":' . $id . ',"FirstName":"'. $FirstName . '","LastName":"'. $LastName . '",}';
+    sendresultInfoAsJson($retValue);
 }
 
