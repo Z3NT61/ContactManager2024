@@ -14,7 +14,7 @@ function login() {
     console.log(payload);
     // ...
     // implement retrieval of user's contacts info from database
-    let url = url + "/login" + extension;
+    let url = url + "/login." + extension;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
