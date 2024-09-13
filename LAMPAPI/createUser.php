@@ -15,7 +15,7 @@ if($db->connect_error){
 }
 else{
 
-    $stmt = $db->prepare("select * from  MAINUSERS where Login = (Login) VALUES(?)");
+    $stmt = $db->prepare("select * from  MAINUSERS where Login like ?");
     $stmt->bind_param("s", $Login);
     $stmt->execute();
     if($stmt->num_rows() > 0){
