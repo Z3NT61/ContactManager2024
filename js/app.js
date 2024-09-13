@@ -72,6 +72,7 @@ function register() {
     }
     catch(err){
         //error message
+        console.log(err.message);
         return;
     }
     window.location.href = "index.html";
