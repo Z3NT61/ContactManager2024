@@ -7,23 +7,30 @@
     <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-
-    
     <div class="register-container">
         <h1>Create an Account</h1>
-        <form class="register">
+        
+        <!-- -->
+        <form class="register" action="createUser.php" method="POST">
+            <!-- -->
             <label for="firstname">First Name:</label>
-            <input type="text" name="firstname" id="firstname">
+            <input type="text" name="firstName" id="firstname" required>
+
             <label for="lastname">Last Name:</label>
-            <input type="text" name="lastname" id="lastname">
+            <input type="text" name="lastName" id="lastname" required>
+
             <label for="email">Email:</label>
-            <input type="text" name="email" id="email">
+            <input type="email" name="email" id="email" required>
+
             <label for="user">Enter a username:</label>
-            <input type="text" name="user" id="user">
+            <input type="text" name="loginName" id="user" required>
+
             <label for="password">Enter a password:</label>
-            <input type="text" name="password" id="password">
+            <input type="password" name="loginPassword" id="password" required>
+
+            <!-- Submit button within the form -->
+            <button id="register" type="submit" >Register</button>
         </form>
-        <button id="register" type="submit">Register</button>
     </div>
 </body>
 </html>
