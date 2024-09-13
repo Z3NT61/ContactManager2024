@@ -60,20 +60,16 @@ function register() {
         xhr.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
-                if (!jsonObject.values(setObj).every(isNotEmpty)) {
-                    //make sure to return error code
-                    return;
-                }
             }
 
         };
         xhr.send(payload);
     }
+	window.location.href = "index.html";
     catch(err){
         //error message
         console.log(err.message);
         return;
     }
-    window.location.href = "index.html";
 
 }
