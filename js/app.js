@@ -40,3 +40,39 @@ function login() {
     }
 
 }
+
+function register() {
+    let user = document.getElementById('user').value;
+    let email = document.getElementById('email').value;
+    let firstname = document.getElementById('firstname').value;
+    let lastname = document.getElementById('lastname').value;
+    let password = document.getElementById('password').value;
+
+    let string = {firstname:firstname, lastname:lastname, email:email, user:user, password:password};
+    let payload = JSON.stringify(string);
+
+    let url = urlBase + "/register." + extension;
+    xhr.open("POST", url, true);
+
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let jsonObject = JSON.parse(xhr.responseText);
+                user = jsonObject.user;
+                firstname = jsonObject.firstname;
+                lastname = jsonObject.lastname;
+                email = jsonObject.email;
+                password = jsonObject.password;
+            }
+
+        };
+        xhr.send(payload);
+    }
+    catch(err){
+        //error message
+        return;
+    }
+    window.location.href = "index.html";
+
+}
