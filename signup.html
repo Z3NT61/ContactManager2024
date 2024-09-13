@@ -12,17 +12,22 @@
         <h1>Create an Account</h1>
         <form class="register">
             <label for="firstname">First Name:</label>
-            <input type="text" name="firstname" id="firstname">
+            <input type="text" name="firstname" id="firstname" required /><br />
+
             <label for="lastname">Last Name:</label>
-            <input type="text" name="lastname" id="lastname">
+            <input type="text" name="lastname" id="lastname" required /><br />
+
             <label for="email">Email:</label>
-            <input type="text" name="email" id="email">
+            <input type="email" name="email" id="email" required /><br />
+
             <label for="user">Enter a username:</label>
-            <input type="text" name="user" id="user">
+            <input type="text" name="user" id="user" required /><br />
+
             <label for="password">Enter a password:</label>
-            <input type="text" name="password" id="password">
+	    <input type="text" name="password" id="password" required /><br />
+
+	    <button id="register" type="submit" onclick="register();">Register</button>
         </form>
-        <button id="register" type="submit" onclick="register();">Register</button>
     </div>
 </body>
 </html>
