@@ -11,9 +11,12 @@ body {
 }
 
 .register-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #eaf2f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
 }
 
 .register label {

@@ -10,26 +10,26 @@
     <div class="register-container">
         <h1>Create an Account</h1>
         
-        <!-- -->
-        <form class="register" action="createUser.php" method="POST">
-            <!-- -->
-            <label for="firstname">First Name:</label>
+        <!-- Form to submit the user data -->
+        <form action="createUser.php" method="POST">
+
+            <p>First Name</p>
             <input type="text" name="firstName" id="firstname" required>
 
-            <label for="lastname">Last Name:</label>
+            <p>Last Name</p>
             <input type="text" name="lastName" id="lastname" required>
 
-            <label for="email">Email:</label>
+            <p>Email</p>
             <input type="email" name="email" id="email" required>
 
-            <label for="user">Enter a username:</label>
+            <p>Enter a Username</p>
             <input type="text" name="loginName" id="user" required>
 
-            <label for="password">Enter a password:</label>
+            <p>Enter a Password</p>
             <input type="password" name="loginPassword" id="password" required>
 
-            <!-- Submit button within the form -->
-            <button id="register" type="submit" >Register</button>
+            <!-- Submit button -->
+            <p><button id="register" type="submit">Register</button></p>
         </form>
     </div>
 </body>
