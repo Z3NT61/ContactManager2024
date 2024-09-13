@@ -51,7 +51,7 @@ function register() {
     let string = {firstname:firstname, lastname:lastname, email:email, user:user, password:password};
     let payload = JSON.stringify(string);
 
-    let url = urlBase + "/register." + extension;
+    let url = urlBase + "/createUser." + extension;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
 
