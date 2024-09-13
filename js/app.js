@@ -60,11 +60,6 @@ function register() {
         xhr.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
-                user = jsonObject.user;
-                firstname = jsonObject.firstname;
-                lastname = jsonObject.lastname;
-                email = jsonObject.email;
-                password = jsonObject.password;
             }
 
         };
