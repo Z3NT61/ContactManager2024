@@ -51,10 +51,8 @@ function returnWithInfo($FirstName, $LastName, $id){
     sendresultInfoAsJson($retValue);
 }
 
-=======
 
 
 
 
 ?>
->>>>>>> 817665e (updated placeholder)
