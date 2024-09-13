@@ -1,13 +1,22 @@
+body {
+    background-color: rgb(3,64,120);
+    color: rgb(254,252,251);
+}
+
 
 .login-container {
+    width: 30%;
+    height: 30%;
+    border: solid black 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* 
 .login label {
     padding-top: 10px;
-}
+} */
 
 .login {
     display: flex;
