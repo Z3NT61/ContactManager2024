@@ -31,7 +31,7 @@ function login() {
                 }
 		    window.location.href = "contacts.html";
             }
-		
+
         };
         xhr.send(payload);
     }
@@ -40,8 +40,3 @@ function login() {
     }
 
 }
-
-loginButton.addEventListener("click", function(e){
-    login();
-    window.location.assign('contacts.html');
-});
