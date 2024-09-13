@@ -11,6 +11,7 @@ function login() {
     let loginString = {login:login, password:password};
     let payload = JSON.stringify(loginString);
 
+    // prints login info
     console.log(payload);
     // ...
     // implement retrieval of user's contacts info from database
@@ -18,4 +19,5 @@ function login() {
 
 loginButton.addEventListener("click", function(e){
     login();
+    window.location.assign('contacts.html');
 });
