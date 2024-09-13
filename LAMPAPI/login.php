@@ -12,7 +12,7 @@ $FirstName = "";
 $LastName = "";
 #$Email = "";
 
-$db = new mysqli("localhost", "DBManager", "DesertDesserts45", "SPROJECTDB"); #connects with the DB using the users login n password
+$db = new mysqli("localhost", "root", "DesertDesserts45", "SPROJECTDB"); #connects with the DB using the users login n password
 if($db->connect_error){
     returnWithError($db->connect_error);
 }
