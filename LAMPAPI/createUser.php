@@ -22,6 +22,7 @@ else{
         returnWithError("User already exists");
     }
     else{
+        $stmt->close();
         $stmt = $db->prepare("insert into MAINUSERS (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
         $stmt->bind_param("ssss",$FirstName, $LastName, $Login, $Password);
         $stmt->execute();
