@@ -69,11 +69,11 @@ function register() {
         };
         xhr.send(payload);
     }
-	window.location.href = "index.html";
     catch(err){
         //error message
         console.log(err.message);
         return;
     }
+	window.location.href = "index.html";
 
 }
