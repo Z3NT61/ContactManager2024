@@ -61,6 +61,7 @@ function register() {
             if(this.readyState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
                 console(jsonObject);
+                window.location.href = "index.html";
             }
 
         };
@@ -71,6 +72,5 @@ function register() {
         console.log(err.message);
         return;
     }
-	window.location.href = "index.html";
 
 }
