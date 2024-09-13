@@ -29,7 +29,9 @@ function login() {
                     //to do
                     return;
                 }
+		    window.location.href = "contacts.html";
             }
+		
         };
         xhr.send(payload);
     }
