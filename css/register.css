@@ -1,5 +1,5 @@
 body {
-    font-family: Poppins, sans-serif;
+    font-family: Times, sans-serif;
     background-image: url("background.jpg");
     background-position: center;
     background-size: cover;
@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Ensures the body covers at least the full viewport */
 }
 
 .register-container {
@@ -18,15 +18,46 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 300px;
-    text-align: center;
+    width: 350px; /* Adjust width for more space */
+    text-align: left; /* Aligns text inside to the left */
+    margin: 40px 0;
+    max-height: 90vh; /* Limits the height */
+    overflow: auto;
 }
 
-.register label {
-    padding-top: 10px;
+h1 {
+    font-size: 36px; /* Reduced font size for better fit */
+    margin-bottom: 20px;
+    text-align: center; /* Keeps the title centered */
 }
 
-.register {
-    display: flex;
-    flex-direction: column;
+p {
+    font-size: 14px; /* Adjusts size of the labels */
+    margin: 0 0 5px 0; /* Adds space below the label */
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px; /* Adds space below each input box */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #387fd1;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #285f9e;
 }
