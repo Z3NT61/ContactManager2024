@@ -28,7 +28,7 @@ else{
         $stmt->execute();
         $stmt->close();
         $db->close();
-        sendresultInfoAsJson("User created successfully");
+        sendresultInfoAsJson('{"success": "User created successfully"}');
     }
 }
 
