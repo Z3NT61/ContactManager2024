@@ -15,53 +15,62 @@ function login() {
     console.log(payload);
     // ...
     // implement retrieval of user's contacts info from database
+    let url = urlBase + "/login." + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let jsonObject = JSON.parse(xhr.responseText);
+                userID = jsonObject.id;
+
+                if(userID < 1){ //this user does not exist
+                    //to do
+                    return;
+                }
+		    window.location.href = "contacts.html";
+            }
+
+        };
+        xhr.send(payload);
+    }
+    catch(err){
+        //error message
+    }
+
 }
 
-loginButton.addEventListener("click", function(e){
-    login();
-    window.location.assign('contacts.html');
-});
-
-// Register a new user
 function register() {
-    // Get the form data
-    const firstName = document.getElementById('firstname').value;
-    const lastName = document.getElementById('lastname').value;
-    const email = document.getElementById('email').value;
-    const loginName = document.getElementById('user').value;
-    const password = document.getElementById('password').value;
+    let user = document.getElementById('user').value;
+    let email = document.getElementById('email').value;
+    let firstname = document.getElementById('firstname').value;
+    let lastname = document.getElementById('lastname').value;
+    let password = document.getElementById('password').value;
 
-    // Create a data object
-    const formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('email', email);
-    formData.append('loginName', loginName);
-    formData.append('loginPassword', password);
+    let string = {firstname:firstname, lastname:lastname, email:email, user:user, password:password};
+    let payload = JSON.stringify(string);
 
-    // Send the form data to createUser.php using fetch
-    fetch(`${urlBase}/createUser.${extension}`, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text()) // Parse response as text
-    .then(data => {
-        // Handle the response from createUser.php
-        if (data.includes("Error") || data.includes("exists")) {
-            // Show error messages
-            document.querySelector('.error-message').innerHTML = data;
-        } else {
-            // Redirect to contacts.html if registration is successful
-            window.location.href = 'contacts.html';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.querySelector('.error-message').innerHTML = "An error occurred during registration.";
-    });
+    let url = urlBase + "/createUser." + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try{
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let jsonObject = JSON.parse(xhr.responseText);
+                console(jsonObject);
+                window.location.href = "index.html";
+            }
+
+        };
+        xhr.send(payload);
+    }
+    catch(err){
+        //error message
+        console.log(err.message);
+        return;
+    }
+
 }
-
-registerButton.addEventListener("click", function(e) {
-    e.preventDefault(); // Prevent the default button click behavior
-    register(); // Call the register function
-});
