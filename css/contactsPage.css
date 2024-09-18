@@ -1,0 +1,100 @@
+/* landing.css */
+body {
+    font-family: Times New Roman, sans-serif;
+    background-image: url("background.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #a6cfff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.contacts-container {
+    background-color: #eaf2f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 750px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Container for the button group */
+.button-group {
+    display: flex;           /* Arrange buttons horizontally */
+    gap: 10px;               /* Add space between buttons */
+    justify-content: center; /* Center the buttons */
+    margin-top: 20px;        /* Add some space above the buttons */
+}
+
+/* Optional: Button styling for a consistent look */
+button {
+    padding: 10px 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #599be6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #357AE8; /* Change color on hover */
+}
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Space out the elements */
+    align-items: center;            /* Vertically align them */
+    margin-bottom: 20px;            /* Add some space below the header */
+}
+
+/* Style for the logout button */
+#logout {
+    background-color: white;        /* White background */
+    color: black;                   /* Black text */
+    border: 1px solid #ccc;         /* Light gray border */
+    padding: 10px 20px;             /* Padding for size */
+    border-radius: 5px;             /* Rounded corners */
+    cursor: pointer;                /* Pointer cursor */
+    font-size: 16px;                /* Font size */
+    width: 100px;
+}
+/* Hover effect for the logout button */
+#logout:hover {
+    background-color: #f0f0f0;      /* Light gray background on hover */
+}

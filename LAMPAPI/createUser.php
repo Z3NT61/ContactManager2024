@@ -1,49 +1,48 @@
 <?php
-include "db.php"; // Include your database connection details
 
-$registerResult = '';
+#creating a user, as titled
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve form data
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $user = $_POST['loginName'];
-    $pass = $_POST['loginPassword'];
+$inData = getRequestInfo();
 
-    // Basic input validation
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($user) || empty($pass)) {
-        $registerResult = "All fields are required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $registerResult = "Invalid email format.";
-    } else {
-        // Check if the username or email already exists in the database
-        $sql = "SELECT * FROM MAINUSERS WHERE Login = '$user' OR Email = '$email'";
-        $result = $conn->query($sql);
+$FirstName = $inData["firstname"];
+$LastName = $inData["lastname"];
+$Login = $inData["user"];
+$Password = $inData["password"];
 
-        if ($result->num_rows > 0) {
-            $registerResult = "Username or email already exists.";
-        } else {
-            // Hash the password before storing it in the database
-            $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+$db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
+if($db->connect_error){
+    returnWithError($db->connect_error);
+}
+else{
 
-            // Insert the new user into the database
-            $sql = "INSERT INTO MAINUSERS (FirstName, LastName, Email, Login, Password, DateCreated)
-                    VALUES ('$firstName', '$lastName', '$email', '$user', '$hashedPassword', NOW())";
-
-            if ($conn->query($sql) === TRUE) {
-                    header('Location: index.html');
-                exit(); // Ensure no further code is executed
-            } else {
-                $registerResult = "Error: " . $conn->error;
-            }
-        }
+    $stmt = $db->prepare("select * from  MAINUSERS where Login like ?");
+    $stmt->bind_param("s", $Login);
+    $stmt->execute();
+    if($stmt->num_rows() > 0){
+        returnWithError("User already exists");
+    }
+    else{
+        $stmt->close();
+        $stmt = $db->prepare("insert into MAINUSERS (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
+        $stmt->bind_param("ssss",$FirstName, $LastName, $Login, $Password);
+        $stmt->execute();
+        $stmt->close();
+        $db->close();
+        sendresultInfoAsJson('{"success": "User created successfully"}');
     }
 }
 
-$conn->close();
 
-if (!empty($registerResult)) {
-    echo "<div class='error-message'>" . $registerResult . "</div>";
+function getRequestInfo(){
+    return json_decode(file_get_contents("php://input"), true);
 }
-?>
+
+function sendresultInfoAsJson($obj){
+    header('Content-type: application/json');
+    echo $obj;
+}
+
+function returnWithError($err){
+    $retValue = '{"error": "' . $err .'"}';
+    sendresultInfoAsJson($retValue);
+}

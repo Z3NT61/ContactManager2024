@@ -1,41 +1,51 @@
 <?php
-session_start();
-include "db.php"; // Include your database connection details
+#this is funcionality assuming you have already logged in, therefore, this is
+#is just a request get function, returning
+#first name, last name, contacts, and more
+#caching may be a good idea when recieving a users' contact information
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve the form data
-    $username = $_POST['user'];
-    $password = $_POST['password'];
+$inData = getRequestInfo();
 
-    // Check if both fields are filled
-    if (empty($username) || empty($password)) {
-        echo "Both username and password are required.";
-    } else {
-        // Prepare and execute the SQL statement to check the username
-        $sql = "SELECT * FROM MAINUSERS WHERE Login = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
+$id = 0;
+$FirstName = "";
+$LastName = "";
+#$Email = "";
 
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            // Verify the password
-            if (password_verify($password, $user['Password'])) {
-                // Password is correct, set the session
-                $_SESSION['user_id'] = $user['ID'];
-                $_SESSION['username'] = $user['Login'];
-
-                // Redirect to contacts.html after successful login
-                header('Location: contacts.html');
-                exit();
-            } else {
-                echo "Incorrect password.";
-            }
-        } else {
-            echo "Username not found.";
-        }
-    }
+$db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
+if($db->connect_error){
+    returnWithError($db->connect_error);
 }
-?>
+else{
+    $start = $db->prepare("select ID, FirstName, LastName from MAINUSERS where Login=? and Password=?");
+    $start->bind_param("ss",$inData["login"], $inData["password"]);
+    $start->execute();
+    $result = $start->get_result();
 
+    if($row = $result->fetch_assoc()){
+        returnWithInfo($row["FirstName"], $row["LastName"], $row["ID"]);
+    }
+    else{
+        returnWithError("No Records Found");
+    }
+    $start->close();
+    $db->close();
+}
+    function getRequestInfo(){
+        return json_decode(file_get_contents("php://input"), true);
+    }
+
+    function sendInfoAsJson($obj){
+        header('Content-type: application/json');
+        echo $obj;
+    }
+
+    function returnWithError($err){
+    $retValue = '{"id":0, "FirstName":"", "LastName":"error", "error": "'. $err . '"}';
+        sendInfoAsJson($retValue);
+    }
+
+function returnWithInfo($FirstName, $LastName, $id){
+    #to do
+    $retValue = '{"id":' . $id . ',"FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
+    sendInfoAsJson($retValue);
+}
