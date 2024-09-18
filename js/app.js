@@ -41,7 +41,7 @@ function login() {
 
 }
 
-function register() {
+function createUser() {
     let user = document.getElementById('user').value;
     let email = document.getElementById('email').value;
     let firstname = document.getElementById('firstname').value;
