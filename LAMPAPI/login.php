@@ -30,19 +30,19 @@ else{
     $start->close();
     $db->close();
 }
-    function getRequestInfo(){
-        return json_decode(file_get_contents("php://input"), true);
-    }
+function getRequestInfo(){
+    return json_decode(file_get_contents("php://input"), true);
+}
 
-    function sendInfoAsJson($obj){
-        header('Content-type: application/json');
-        echo $obj;
-    }
+function sendInfoAsJson($obj){
+    header('Content-type: application/json');
+    echo $obj;
+}
 
-    function returnWithError($err){
+function returnWithError($err){
     $retValue = '{"id":0, "FirstName":"", "LastName":"error", "error": "'. $err . '"}';
-        sendInfoAsJson($retValue);
-    }
+    sendInfoAsJson($retValue);
+}
 
 function returnWithInfo($FirstName, $LastName, $id){
     #to do

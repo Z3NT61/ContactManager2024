@@ -29,6 +29,7 @@ else{
         $start->execute();
         $start->close();
         $db->close();
+        #also need to add the stmt that adds the uid relationship in USERCONTACTS
     }
     else{
         returnWithError("This user already exists");
