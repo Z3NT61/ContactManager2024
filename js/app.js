@@ -74,3 +74,9 @@ function createUser() {
     }
 
 }
+
+
+function logout(){
+    window.location.href("index.html");
+    return;
+}
