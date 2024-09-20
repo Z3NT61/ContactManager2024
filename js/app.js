@@ -29,7 +29,9 @@ function login() {
                     //to do
                     return;
                 }
-		    window.location.href = "contacts.html";
+                else{
+                    window.location.href = "contacts.html";
+                }
             }
 
         };
@@ -61,7 +63,12 @@ function createUser() {
             if(this.readyState == 4 && this.status == 200){
                 let jsonObject = JSON.parse(xhr.responseText);
                 console(jsonObject);
-                window.location.href = "index.html";
+                content = jsonObject.error;
+                if(content === "User already exists"){
+                    //send error
+                }else{
+                    window.location.href('index.html');
+                }
             }
 
         };
@@ -73,10 +80,4 @@ function createUser() {
         return;
     }
 
-}
-
-
-function logout(){
-    window.location.href("index.html");
-    return;
 }
