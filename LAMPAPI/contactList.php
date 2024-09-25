@@ -21,16 +21,17 @@ if($db->connect_error){
     returnWithError($db->connect_error);
 }
 else{
-    $getID = $db->prepare("select ID from MAINUSERS where Login=?");
-    $getID->bind_param("s", $inData["login"]);
+    $getID = $db->prepare("select UserID from USERCONTACTS where UserID=?");
+    $getID->bind_param("s", $inData["id"]);
     $getID->execute();
-    $ret = $getID->get_result();
-    $stmt = $db->prepare("select UserID from USERCONTACTS where UserID=?");
-    $stmt->bind_param("s",$inData["id"]);
-    $stmt->execute();
-    $result= $stmt->get_result();
+    $result = $getID->get_result();
     while($ret = $result->fetch_assoc()){
-        returnWithInfo($ret['FirstName'], $ret['LastName'], $ret['Email']);
+        $stmt = $db->prepare("select * from CONTACTS where ID=?");
+        $stmt->bind_param("s",$ret["ContactID"]);
+        $stmt->execute();
+        $contact = $stmt->get_result();
+        $result = $contact->fetch_assoc;
+        returnWithInfo($result['FirstName'], $result['LastName'], $result['Email']);
     }
 }
 
