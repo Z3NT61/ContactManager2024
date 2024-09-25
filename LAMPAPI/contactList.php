@@ -29,7 +29,8 @@ else{
     $stmt->bind_param("s",$inData["id"]);
     $stmt->execute();
     $result= $stmt->get_result();
-    sendInfoAsJson(json_decode($result));
+    $ret = $result->fetch_assoc();
+    sendInfoAsJson(json_decode($ret));
 }
 
 function getRequestInfo(){
