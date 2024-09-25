@@ -17,18 +17,19 @@
 $inData = getRequestInfo();
 
 $id = 0;
-$FirstName = "";
-$LastName = "";
-$Email = "";
-#phone number?
+$Login = "";
 
 $db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
 if($db->connect_error){
     returnWithError($db->connect_error);
 }
 else{
+    $getID = $db->prepare("select id from MAINUSERS where Login=?");
+    $getID->bind_param("s", $inData["login"]);
+    $getID->execute();
+    $ret = $getID->get_result();
     $stmt = $db->prepare("select id from USERCONTACTS where id=?");
-    $stmt->bind_param("s", $id);
+    $stmt->bind_param("s", $ret->fetch_assoc());
     $stmt->execute();
     $result= $stmt->get_result();
     sendInfoAsJson($result->fetch_all());
