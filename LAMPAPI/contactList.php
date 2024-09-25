@@ -16,9 +16,6 @@
 
 $inData = getRequestInfo();
 
-$id = 0;
-$Login = "";
-
 $db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
 if($db->connect_error){
     returnWithError($db->connect_error);
@@ -29,10 +26,10 @@ else{
     $getID->execute();
     $ret = $getID->get_result();
     $stmt = $db->prepare("select UserID from USERCONTACTS where UserID=?");
-    $stmt->bind_param("s", $ret->fetch_assoc());
+    $stmt->bind_param("s",$inData["id"]);
     $stmt->execute();
     $result= $stmt->get_result();
-    sendInfoAsJson($result->fetch_all());
+    returnWithInfo($result->fetch_all());
 }
 
 function getRequestInfo(){
