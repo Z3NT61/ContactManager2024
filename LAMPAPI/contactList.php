@@ -29,9 +29,11 @@ else{
     $stmt->bind_param("s",$inData["id"]);
     $stmt->execute();
     $result= $stmt->get_result();
-    $ret = $result->fetch_assoc();
-    sendInfoAsJson(json_decode($ret));
+    while($ret = $result->fetch_assoc()){
+        returnWithInfo($ret['FirstName'], $ret['LastName'], $ret['Email']);
+    }
 }
+
 
 function getRequestInfo(){
     return json_decode(file_get_contents("php://input"), true);
@@ -49,6 +51,6 @@ function returnWithError($err){
 
 function returnWithInfo($FirstName, $LastName, $id){
     #to do
-    $retValue = '{"id":' . $id . ',"FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
+    $retValue = '{"Email":' . $id . ',"FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
     sendInfoAsJson($retValue);
 }
