@@ -33,6 +33,9 @@ else{
         $result = $contact->fetch_assoc;
         returnWithInfo($result['FirstName'], $result['LastName'], $result['Email']);
     }
+    if(!($ret = $result->fetch_assoc())){
+        returnWithError("No Users Found");
+    }
 }
 
 
