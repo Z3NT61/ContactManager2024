@@ -55,6 +55,6 @@ function returnWithError($err){
 
 function returnWithInfo($FirstName, $LastName, $id){
     #to do
-    $retValue = '{"Email":' . $id . ',"FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
+    $retValue = '{"Email":"' . $id . '","FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
     sendInfoAsJson($retValue);
 }
