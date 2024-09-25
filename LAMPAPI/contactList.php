@@ -24,11 +24,11 @@ if($db->connect_error){
     returnWithError($db->connect_error);
 }
 else{
-    $getID = $db->prepare("select id from MAINUSERS where Login=?");
+    $getID = $db->prepare("select ID from MAINUSERS where Login=?");
     $getID->bind_param("s", $inData["login"]);
     $getID->execute();
     $ret = $getID->get_result();
-    $stmt = $db->prepare("select id from USERCONTACTS where id=?");
+    $stmt = $db->prepare("select UserID from USERCONTACTS where UserID=?");
     $stmt->bind_param("s", $ret->fetch_assoc());
     $stmt->execute();
     $result= $stmt->get_result();
