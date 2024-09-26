@@ -1,5 +1,6 @@
+/* landing.css */
 body {
-    font-family: Times, sans-serif;
+    font-family: Times New Roman, sans-serif;
     background-image: url("background.jpg");
     background-position: center;
     background-size: cover;
@@ -14,34 +15,54 @@ body {
 }
 
 .login-container {
+    color: #333;
     background-color: #eaf2f8;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 400px;
+    width: 300px;
     text-align: center;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* field inputs could delete as it does nothing */
+.field-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.field-input label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
 }
 
 h1 {
     font-size: 48px;
-    font-weight: bold;
     margin-bottom: 10px;
 }
 
 h3 {
     font-size: 18px;
-    font-weight: normal;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
-    margin: 10px 0; /* Set top and bottom margin only */
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
+
 
 button {
     width: 100%;
@@ -52,8 +73,6 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    font-weight: medium;
-    margin-top: 10px;
 }
 
 button:hover {
