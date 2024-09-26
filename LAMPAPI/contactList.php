@@ -1,19 +1,5 @@
 <?php
 
-#contact list, doesn't want a the full list displayed, should still return the
-#full table and cache server side until user logouts most likely. sigh.
-#check if logged in. could either be in js or here, learn.
-#select statement that takes in the whole table for a UID,
-#
-#table is build like
-# ID | ID connected to
-#therefore only need to check one column, most likely the first column,
-#scaling wise, need to think about how this will be in future, could take a long
-#time search thru unneccessary table entries. Maybe a separaete database per user?
-#but have to think about the space complexity of this system.
-#a list for each user and worse case, every user is connected to each other
-#O(n * n) space.
-
 $inData = getRequestInfo();
 
 $db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
@@ -21,20 +7,29 @@ if($db->connect_error){
     returnWithError($db->connect_error);
 }
 else{
-    $getID = $db->prepare("select UserID from USERCONTACTS where UserID=?");
+    $getID = $db->prepare("select ContactID from USERCONTACTS where UserID=?");
     $getID->bind_param("s", $inData["id"]);
     $getID->execute();
-    $result = $getID->get_result();
-    while($ret = $result->fetch_assoc()){
-        $stmt = $db->prepare("select * from CONTACTS where ID=?");
-        $stmt->bind_param("s",$ret["ContactID"]);
-        $stmt->execute();
-        $contact = $stmt->get_result();
-        $result = $contact->fetch_assoc;
-        returnWithInfo($result['FirstName'], $result['LastName'], $result['Email']);
+    $retID= $getID->get_result();
+    if($ret = $retID->fetch_assoc()){
+	    $arr = null;
+	    $stmt = $db->prepare("select * from CONTACTS where ID=?");
+	    do{
+		    $stmt->bind_param("s", $ret["ContactID"]);
+		    $stmt->execute();
+		    $contact = $stmt->get_result();
+		    if($tack = $contact->fetch_assoc()){
+			    $sendarr = returnWithInfo($tack["FirstName"], $tack["LastName"], $tack["Email"], $arr);
+			    $arr = $sendarr;
+		    }
+		    else{
+			    returnWithError("No Contacts Found");
+		    }
+	    }while ($ret = $retID->fetch_assoc());
+	    sendInfoAsJson(($sendarr));
     }
-    if(!($ret = $result->fetch_assoc())){
-        returnWithError("No Users Found");
+    else{
+	    returnWithError("No UserID Found");
     }
 }
 
@@ -53,8 +48,16 @@ function returnWithError($err){
     sendInfoAsJson($retValue);
 }
 
-function returnWithInfo($FirstName, $LastName, $id){
+function returnWithInfo($FirstName, $LastName, $id, $arr){
     #to do
-    $retValue = '{"Email":"' . $id . '","FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
-    sendInfoAsJson($retValue);
+	$retvalue = '{"Email":"' . $id . '","FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
+	if($arr === NULL)
+		return $retvalue;
+	else{
+		$user[] = json_decode($arr, true);
+		$user[] = json_decode($retvalue, true);
+		$json_merge = json_encode($user);
+		return $json_merge;
+	}
+
 }
