@@ -1,11 +1,6 @@
 const urlBase = 'http://44.213.35.7/LAMPAPI';
 const extension = 'php';
 
-
-let userId = 0;
-let firstName = "";
-let lastName = "";
-
 // index.html
 document.addEventListener('DOMContentLoaded', () => {
     // Attach event listener to the form's submit event
@@ -32,7 +27,7 @@ function doLogin() {
     let jsonPayload = JSON.stringify(tmp);
 
     // Define the URL for the login request
-    let url = urlBase + '/Login.' + extension;
+    let url = urlBase + '/login.' + extension;
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -56,6 +51,7 @@ function doLogin() {
 
                 // Redirect to the desired page upon successful login
                 window.location.href = "contacts.html";
+
             }
         };
         xhr.send(jsonPayload);
@@ -69,7 +65,7 @@ function saveCookie()
 {
 	let minutes = 20;
 	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
@@ -78,7 +74,7 @@ function readCookie()
 	userId = -1;
 	let data = document.cookie;
 	let splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
+	for(var i = 0; i < splits.length; i++)
 	{
 		let thisOne = splits[i].trim();
 		let tokens = thisOne.split("=");
@@ -95,7 +91,7 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
@@ -115,81 +111,6 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
-{
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-
-	let tmp = {color:newColor,userId,userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/AddColor.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
-}
-
-function searchColor()
-{
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";
-
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchColors.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-	
-}
 // signup.html
 document.addEventListener('DOMContentLoaded', () => {
     // Select the form by its ID
@@ -206,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function signup(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const data = new FormData(event.target);
     let firstName = data.get("firstName");
@@ -217,7 +138,7 @@ function signup(event) {
 
     if (!firstName || !lastName || !username || !password) {
         console.log("Invalid Fields");
-        return; 
+        return;
     }
 
     var signupdata = {
@@ -302,16 +223,16 @@ function addContact(event) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             console.log('Server response:', xhr.responseText);
-			
+
             // Close the popup after successfully adding the contact
             closePopup();
 
             // Optionally clear the form fields after submission
             document.getElementById('newContactForm').reset();
-			
-			
+
+
 			//viewData(); have to update to where when we add a new data it also updates the grid dynamically.
-			viewData(); 
+			viewData();
 
         } else if (xhr.readyState === 4) {
             console.log('Error:', xhr.responseText);
@@ -381,14 +302,14 @@ function viewData(event) {
                         <td>${contact.firstName}</td>
                         <td>${contact.lastName}</td>
                         <td>${contact.email}</td>
-						
+
 						<td>
                             <div class="edit_buttons">
                                 <button class="delete-btn" onclick="deleteContact(${contact.contactId})">Delete</button>
                                 <button class="edit-btn" onclick="editToggle(${contact.contactId}, '${contact.firstName}', '${contact.lastName}', '${contact.email}')">Edit</button>
                             </div>
                         </td>
-						
+
                     `;
                     contactsTableBody.appendChild(row);
                 });
@@ -413,7 +334,7 @@ function deleteContact(index) {
     let url = urlBase + "/deleteContacts." + extension; // Replace with the correct endpoint
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
-	
+
 
 
 	console.log(index);
@@ -441,7 +362,7 @@ function deleteContact(index) {
 function editToggle(contactId, firstName, lastName, email) {
     // Get the table row that contains the buttons and other fields.
     const row = document.querySelector(`tr[data-id="${contactId}"]`);
-    
+
     // Change the row's content to input fields
     row.innerHTML = `
         <td><input type="text" id="firstName_${contactId}" value="${firstName}" /></td>
@@ -506,7 +427,7 @@ function editContact(contactId,  firstName, lastName, email) {
 				console.log('Error fetching contacts:', xhr.responseText);
 			}
 		};
-	
+
 		xhr.send(jsonPayload);  // Send the request with the payload
 	} catch (err) {
 		console.log("Error during the request:", err.message);
@@ -529,15 +450,33 @@ document.getElementById("search").addEventListener("keyup", async function () {
 });
 
 function searchContacts(searchContactItem){
-	
+
     filter = searchContactItem.value.toUpperCase().split(',');  // Split search terms by comma
 
 	for (let i = 0; i < filter.length; i++) {
 		console.log(filter[i]);  // Log each individual search term
 	}
-	
+
 
 };
+
+//??? I don't even know
+function getContacts(){
+    let url = urlBase + '/contactList.' + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                jsonPayload = userId;
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("loginResult").innerHTML = err.message;
+    }
+}
 
 
 
