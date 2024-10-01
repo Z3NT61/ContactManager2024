@@ -52,7 +52,7 @@ function doLogin() {
         firstName = jsonObject.firstName;
         lastName = jsonObject.lastName;
 
-        saveCookie(); // Save the user's information in a cookie
+        saveCookie(firstName, lastName, userId); // Save the user's information in a cookie
 
         // Redirect to the desired page upon successful login
         window.location.href = 'contacts.html';
@@ -64,12 +64,12 @@ function doLogin() {
   }
 }
 
-function saveCookie() {
+function saveCookie(firstName, lastName, userId) {
   let minutes = 20;
   let date = new Date();
   date.setTime(date.getTime() + minutes * 60 * 1000);
   document.cookie =
-    'firstName=' +
+    'credentials=firstName=' +
     firstName +
     ',lastName=' +
     lastName +
@@ -163,6 +163,7 @@ function signup(event) {
 document.addEventListener('DOMContentLoaded', () => {
   // Open popup when "Add New Contact" button is clicked
   document.getElementById('add').addEventListener('click', openPopup);
+  readCookie();
   // Close popup when the close button is clicked
   document.querySelector('.close-btn').addEventListener('click', closePopup);
 });
