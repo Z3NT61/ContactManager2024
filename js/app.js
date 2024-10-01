@@ -56,8 +56,6 @@ function doLogin() {
 
         // Redirect to the desired page upon successful login
         window.location.href = 'contacts.html';
-        document.getElementById('heading').innerHTML =
-          'Hello,' + firstName + '!';
       }
     };
     xhr.send(jsonPayload);
@@ -164,7 +162,7 @@ function signup(event) {
 document.addEventListener('DOMContentLoaded', () => {
   // Open popup when "Add New Contact" button is clicked
   document.getElementById('add').addEventListener('click', openPopup);
-
+  document.getElementById('heading').innerHTML = 'Hello,' + firstName + '!';
   // Close popup when the close button is clicked
   document.querySelector('.close-btn').addEventListener('click', closePopup);
 });
