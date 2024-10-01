@@ -38,8 +38,8 @@ You will get a zero if you miss your team's presentation without a prior excuse.
   * Gantt chart - 5 pts
   * Demonstration of at least one (but no more than two) API endpoint(s) with SwaggerHub - 5 points
   * Effective search with partial match - 5 points
-  [] Thorough demonstration of working project - 30 pts
-  [] Project adheres to current standards - 10 pts
-  [] ERD - 5 pts
-  [] Explanation of technology used for project - 5 pts
-  [] Instructor's impression - 10 points
+  *  Thorough demonstration of working project - 30 pts
+  *  Project adheres to current standards - 10 pts
+  *  ERD - 5 pts
+  *  Explanation of technology used for project - 5 pts
+  *  Instructor's impression - 10 points
