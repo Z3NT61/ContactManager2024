@@ -23,9 +23,13 @@ $contactId = $data['contactId'];
 // Debugging: log the contactId for reference
 $response['debug'] = "Attempting to delete contact with ID: " . $contactId;
 
+// Database connection
+$servername = "localhost"; // Replace with your DB host
+$username = "root"; // Replace with your DB username
+$password = "b+YXZI98+xeB"; // Replace with your DB password
+$dbname = "SPROJECTDB"; // Replace with your DB name
 
-
-$conn = new mysqli("localhost", "DBManager", "DesertDesserts45", "SPROJECTDB");
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {

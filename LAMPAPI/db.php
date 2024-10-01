@@ -1,8 +1,8 @@
 <?php
 // Database connection settings
 $servername = "localhost"; // Replace with your database server name
-$username = "DBManager"; // Replace with your database username
-$password = "DesertDesserts45"; // Replace with your database password
+$username = "root"; // Replace with your database username
+$password = "b+YXZI98+xeB"; // Replace with your database password
 $dbname = "SPROJECTDB"; // Replace with your database name
 
 // Create connection

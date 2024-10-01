@@ -9,7 +9,7 @@ ini_set('display_startup_errors', 1);
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     
-	$conn = new mysqli("localhost", "DBManager", "DesertDesserts45", "SPROJECTDB");
+    $conn = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
     if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );

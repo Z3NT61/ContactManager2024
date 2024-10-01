@@ -13,7 +13,7 @@ error_log("Updating contact with ID: $contactId");
 error_log("First Name: $firstName, Last Name: $lastName, Email: $email");
 
 // Connect to the database
-$conn = new mysqli("localhost", "DBManager", "DesertDesserts45", "SPROJECTDB");
+$conn = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {

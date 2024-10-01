@@ -64,7 +64,7 @@ $lastName = $inData["lastName"];
 $email = $inData["email"];
 
 // Database connection
-$conn = new mysqli("localhost", "DBManager", "DesertDesserts45", "SPROJECTDB");
+$conn = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
 if ($conn->connect_error) 
 {
     returnWithError("Database connection failed: " . $conn->connect_error);
