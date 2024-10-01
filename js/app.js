@@ -98,7 +98,8 @@ function readCookie() {
   if (userId < 0) {
     window.location.href = 'index.html';
   } else {
-    //		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+    document.getElementById('heading').innerHTML =
+      'Logged in as ' + firstName + ' ' + lastName;
   }
 }
 // signup.html
@@ -163,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Open popup when "Add New Contact" button is clicked
   document.getElementById('add').addEventListener('click', openPopup);
   readCookie();
-  document.getElementById('heading').innerHTML = 'Hello,' + userId + '!';
   // Close popup when the close button is clicked
   document.querySelector('.close-btn').addEventListener('click', closePopup);
 });
