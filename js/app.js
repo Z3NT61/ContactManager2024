@@ -163,7 +163,6 @@ function signup(event) {
 document.addEventListener('DOMContentLoaded', () => {
   // Open popup when "Add New Contact" button is clicked
   document.getElementById('add').addEventListener('click', openPopup);
-  readCookie();
   // Close popup when the close button is clicked
   document.querySelector('.close-btn').addEventListener('click', closePopup);
 });
