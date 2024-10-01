@@ -1,5 +1,5 @@
 <?php
-
+session_start(); 
 $inData = getRequestInfo();
 
 $db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
