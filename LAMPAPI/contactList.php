@@ -2,6 +2,12 @@
 session_start(); 
 $inData = getRequestInfo();
 
+$userId = $_SESSION['UserID'];
+if (!isset($_SESSION['UserID'])) {
+    echo json_encode(['error' => 'User is not logged in.']);
+    exit();
+}
+
 $db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
 if($db->connect_error){
     returnWithError($db->connect_error);
