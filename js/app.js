@@ -436,15 +436,25 @@ function editContact(contactId, firstName, lastName, email) {
 
 document.getElementById("search").addEventListener("keyup", function () {
     const searchContactItem = this.value.toLowerCase(); // Get the search input value
-
     readCookie();
+
+
+    let tmp = {
+        contactId: userId,
+        searchContactItem:searchContactItem,
+      };
+
+      let jsonPayload = JSON.stringify(tmp);
+
+
     console.log(searchContactItem);
     console.log(userId);
 
     if (searchContactItem.length > 0) {
+        let xhr = new XMLHttpRequest();
+
         let url = urlBase + '/contactList.' + extension;
         
-        let xhr = new XMLHttpRequest();
         xhr.open("POST", url, true); // Open a POST request
         xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); // Set content type
 
