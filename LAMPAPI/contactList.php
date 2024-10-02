@@ -7,38 +7,23 @@ if (!isset($_SESSION['UserID'])) {
 
 $inData = getRequestInfo();
 $userId = $_SESSION['UserID'];
-$searchItem = $inData["searchContactItem"];
+$searchItem = $inData["searchContactItem"];  // Adjust this based on actual input name
 
-// It's better to keep credentials out of the code
-require 'config.php'; // Assumes your DB credentials are stored in config.php
-
-
-// Database connection
-$conn = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
-if ($conn->connect_error) 
-{
-    returnWithError("Database connection failed: " . $conn->connect_error);
-    exit();
+$db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
+if($db->connect_error) {
+    returnWithError($db->connect_error);
 } else {
     $stmt = $db->prepare("SELECT FirstName, LastName, Email, ID FROM CONTACTS WHERE UserID=? AND (FirstName LIKE ? OR LastName LIKE ?)");
-    if (!$stmt) {
-        returnWithError("Failed to prepare the statement");
-        exit();
-    }
-
     $likeSearch = "%{$searchItem}%";
     $stmt->bind_param("sss", $userId, $likeSearch, $likeSearch);
-    if (!$stmt->execute()) {
-        returnWithError($stmt->error);
-        exit();
-    }
+    $stmt->execute();
     $result = $stmt->get_result();
     $contacts = [];
-    while ($row = $result->fetch_assoc()) {
+    while($row = $result->fetch_assoc()) {
         $contacts[] = $row;
     }
-    if (count($contacts) > 0) {
-        sendInfoAsJson($contacts);
+    if(count($contacts) > 0){
+        sendInfoAsJson(json_encode($contacts));
     } else {
         returnWithError("No Contacts Found");
     }
@@ -50,10 +35,11 @@ function getRequestInfo(){
 
 function sendInfoAsJson($obj){
     header('Content-type: application/json');
-    echo json_encode($obj);
+    echo $obj;
 }
 
 function returnWithError($err){
-    sendInfoAsJson(["id" => 0, "FirstName" => "", "LastName" => "", "Email" => "", "error" => $err]);
+    $retValue = '{"id":0, "FirstName":"", "LastName":"", "Email":"", "error": "'. $err . '"}';
+    sendInfoAsJson($retValue);
 }
 ?>
