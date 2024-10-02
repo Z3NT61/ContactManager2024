@@ -476,21 +476,13 @@ document.getElementById("search").addEventListener("keyup", function () {
             }
         };
 
-
         // Create the request payload
         let requestData = JSON.stringify({
-            id: UserId // Send the search string to the backend
+            search: searchContactItem // Send the search string to the backend
         });
 
         // Send the request
         xhr.send(requestData);
     }
 });
-
-
-
-
-
-
-
 
