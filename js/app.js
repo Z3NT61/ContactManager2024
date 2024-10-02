@@ -5,6 +5,7 @@ let userId = 0;
 let firstName = '';
 let lastName = '';
 
+
 // index.html
 document.addEventListener('DOMContentLoaded', () => {
   // Attach event listener to the form's submit event
@@ -100,6 +101,7 @@ function readCookie() {
   } else {
     document.getElementById('heading').innerHTML =
       'Logged in as ' + firstName + ' ' + lastName;
+      console.log(userId);
   }
 }
 // signup.html
@@ -435,6 +437,10 @@ function editContact(contactId, firstName, lastName, email) {
 document.getElementById("search").addEventListener("keyup", function () {
     const searchContactItem = this.value.toLowerCase(); // Get the search input value
 
+    readCookie();
+    console.log(searchContactItem);
+    console.log(userId);
+
     if (searchContactItem.length > 0) {
         let url = urlBase + '/contactList.' + extension;
         
@@ -470,9 +476,10 @@ document.getElementById("search").addEventListener("keyup", function () {
             }
         };
 
+
         // Create the request payload
         let requestData = JSON.stringify({
-            search: searchContactItem // Send the search string to the backend
+            id: UserId // Send the search string to the backend
         });
 
         // Send the request
