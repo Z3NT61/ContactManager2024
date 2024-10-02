@@ -4,7 +4,7 @@ $inData = getRequestInfo();
 
 $userId = $_SESSION['UserID'];
 if (!isset($_SESSION['UserID'])) {
-    echo json_encode(['error' => 'User is not logged in.']);
+	returnWithError("No UserID Found111111111");
     exit();
 }
 
