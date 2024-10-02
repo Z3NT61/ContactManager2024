@@ -12,9 +12,13 @@ $searchItem = $inData["searchContactItem"];
 // It's better to keep credentials out of the code
 require 'config.php'; // Assumes your DB credentials are stored in config.php
 
-$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-if($db->connect_error) {
-    returnWithError($db->connect_error);
+
+// Database connection
+$conn = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
+if ($conn->connect_error) 
+{
+    returnWithError("Database connection failed: " . $conn->connect_error);
+    exit();
 } else {
     $stmt = $db->prepare("SELECT FirstName, LastName, Email, ID FROM CONTACTS WHERE UserID=? AND (FirstName LIKE ? OR LastName LIKE ?)");
     if (!$stmt) {
