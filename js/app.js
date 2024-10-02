@@ -5,6 +5,7 @@ let userId = 0;
 let firstName = '';
 let lastName = '';
 
+
 // index.html
 document.addEventListener('DOMContentLoaded', () => {
   // Attach event listener to the form's submit event
@@ -436,7 +437,7 @@ function editContact(contactId, firstName, lastName, email) {
 document.getElementById("search").addEventListener("keyup", function () {
     const searchContactItem = this.value.toLowerCase(); // Get the search input value
 
-
+    readCookie();
     console.log(searchContactItem);
     console.log(userId);
 
