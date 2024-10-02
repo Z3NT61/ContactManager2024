@@ -435,64 +435,36 @@ function editContact(contactId, firstName, lastName, email) {
 
 
 document.getElementById("search").addEventListener("keyup", function () {
-    const searchContactItem = this.value.toLowerCase(); // Get the search input value
-    readCookie();
-
-
-    let tmp = {
-        contactId: userId,
-        searchContactItem:searchContactItem,
-      };
-
-      let jsonPayload = JSON.stringify(tmp);
-
-
-    console.log(searchContactItem);
-    console.log(userId);
-
+    const searchContactItem = this.value.toLowerCase();
     if (searchContactItem.length > 0) {
+        let url = urlBase + '/updateContacts.' + extension;
         let xhr = new XMLHttpRequest();
-
-        let url = urlBase + '/contactList.' + extension;
         
-        xhr.open("POST", url, true); // Open a POST request
-        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); // Set content type
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-        // Handle the response from the PHP backend
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                // Parse the JSON response
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log('Server response:', xhr.responseText);
                 const result = JSON.parse(xhr.responseText);
-
                 if (result.error) {
                     console.error(result.error);
                 } else {
-                    // Clear the existing table rows
                     const tbody = document.querySelector("#contactsTable tbody");
                     tbody.innerHTML = '';
-
-                    // Populate the table with the new results
                     result.forEach(contact => {
                         const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${contact.FirstName}</td>
-                            <td>${contact.LastName}</td>
-                            <td>${contact.Email}</td>
-                            <td><button class="delete-btn" onclick="deleteContact(${contact.ID})">Delete</button></td>
-                        `;
+                        row.innerHTML = `<td>${contact.FirstName}</td>
+                                         <td>${contact.LastName}</td>
+                                         <td>${contact.Email}</td>
+                                         <td><button class="delete-btn" onclick="deleteContact(${contact.ID})">Delete</button></td>`;
                         tbody.appendChild(row);
                     });
                 }
             }
         };
 
-        // Create the request payload
-        let requestData = JSON.stringify({
-            search: searchContactItem // Send the search string to the backend
-        });
-
-        // Send the request
-        xhr.send(requestData);
+        xhr.send(JSON.stringify({ id: userId, searchContactItem: searchContactItem }));
     }
 });
 
