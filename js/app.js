@@ -100,6 +100,7 @@ function readCookie() {
   } else {
     document.getElementById('heading').innerHTML =
       'Logged in as ' + firstName + ' ' + lastName;
+      console.log(userId);
   }
 }
 // signup.html
@@ -434,6 +435,10 @@ function editContact(contactId, firstName, lastName, email) {
 
 document.getElementById("search").addEventListener("keyup", function () {
     const searchContactItem = this.value.toLowerCase(); // Get the search input value
+
+
+    console.log(searchContactItem);
+    console.log(userId);
 
     if (searchContactItem.length > 0) {
         let url = urlBase + '/contactList.' + extension;
