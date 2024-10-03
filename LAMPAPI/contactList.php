@@ -34,10 +34,10 @@ if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
     // Prepare a name pattern for SQL LIKE matching, including wildcard characters
-    $paddedName = "%" . strtolower($inData["name"]) . "%";
+    $paddedName = "%" . strtolower($inData["searchContactItem"]) . "%";
 
     // Prepare an SQL statement to select contact details where the user's input matches either first name, last name, or full name
-    $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Email, Phone, Address FROM CONTACTS WHERE (LOWER(FirstName) LIKE ? OR LOWER(LastName) LIKE ? OR LOWER(CONCAT(FirstName, ' ', LastName)) LIKE ?) AND User_ID = ?");
+    $stmt = $conn->prepare("SELECT * FROM CONTACTS WHERE (LOWER(FirstName) LIKE ? OR LOWER(LastName) LIKE ? OR LOWER(CONCAT(FirstName, ' ', LastName)) LIKE ?) AND ID = ?");
     $stmt->bind_param("sssi", $paddedName, $paddedName, $paddedName, $inData["userId"]);
 
     // Execute the statement
