@@ -1,65 +1,65 @@
 <?php
 
-// Function to retrieve request data from the input
-function getRequestInfo() {
-    return json_decode(file_get_contents('php://input'), true);
+$inData = getRequestInfo();
+
+$db = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB"); #connects with the DB using the users login n password
+if($db->connect_error){
+    returnWithError($db->connect_error);
+}
+else{
+    $getID = $db->prepare("select ContactID from USERCONTACTS where UserID=?");
+    $getID->bind_param("s", $inData["UserID"]);
+    $getID->execute();
+    $retID= $getID->get_result();
+    if($ret = $retID->fetch_assoc()){
+        $arr = null;
+        $paddedName = "%" . strtolower($inData[searchContactItem]) . "%";
+        $stmt = $db->prepare("select * from CONTACTS where ID=? and FirstName like ?");
+        do{
+            $stmt->bind_param("si", $ret["ContactID"], $paddedName);
+            $stmt->execute();
+            $contact = $stmt->get_result();
+            if($tack = $contact->fetch_assoc()){
+                $sendarr = returnWithInfo($tack["FirstName"], $tack["LastName"], $tack["Email"], $arr);
+                $arr = $sendarr;
+            }
+            else{
+                returnWithError("No Contacts Found");
+            }
+        }while ($ret = $retID->fetch_assoc());
+        sendInfoAsJson(($sendarr));
+    }
+    else{
+        returnWithError("No UserID Found");
+    }
 }
 
-// Function to send a JSON response back to the client
-function sendResultInfoAsJson($obj) {
+
+function getRequestInfo(){
+    return json_decode(file_get_contents("php://input"), true);
+}
+
+function sendInfoAsJson($obj){
     header('Content-type: application/json');
     echo $obj;
 }
 
-// Function to handle errors and return a structured error response
-function returnWithError($err) {
-    $retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
-    sendResultInfoAsJson($retValue);
+function returnWithError($err){
+    $retValue = '{"id":0, "FirstName":"", "LastName":"error", "error": "'. $err . '"}';
+    sendInfoAsJson($retValue);
 }
 
-// Function to handle successful data retrieval and return a structured data response
-function returnWithInfo($resArray) {
-    $retValue = json_encode($resArray);
-    sendResultInfoAsJson($retValue);
-}
-
-// Retrieve request information
-$inData = getRequestInfo();
-
-// Create a connection to the database
-$conn = new mysqli("localhost", "root", "b+YXZI98+xeB", "SPROJECTDB");
-
-// Check for connection errors
-if ($conn->connect_error) {
-    returnWithError($conn->connect_error);
-} else {
-    // Prepare a name pattern for SQL LIKE matching, including wildcard characters
-    $paddedName = "%" . strtolower($inData["searchContactItem"]) . "%";
-
-    // Prepare an SQL statement to select contact details where the user's input matches either first name, last name, or full name
-    $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Email,FROM Contacts WHERE LOWER(FirstName) like ?  AND User_ID = ?
-        order by FirstName  like concat(?, '%') desc, ifnull(nullif(INSTR(name, concat(' ', ?)), 0), 999999), ifnull(nullif(INSTR(name, ?), 0), 999999), name");
-
-    $stmt->bind_param("sisss", $paddedName, $inData["userId"], $inData["searchContactItem"] . "%"," " . $inData["searchContactItem"],  $inData["searchContactItem"]);
-
-    // Execute the statement
-    $stmt->execute();
-
-    // Get the result of the query
-    $result = $stmt->get_result();
-
-    // Check if the query returned any rows
-    if ($result->num_rows > 0) {
-        // Fetch all results as an associative array
-        $arr = $result->fetch_all(MYSQLI_ASSOC);
-        returnWithInfo($arr);
-    } else {
-        returnWithError("No records found.");
+function returnWithInfo($FirstName, $LastName, $id, $arr){
+    #to do
+    $retvalue = '{"Email":"' . $id . '","FirstName":"'. $FirstName . '","LastName":"'. $LastName . '"}';
+    $user = NULL;
+    if($arr === NULL)
+    return $retvalue;
+    else{
+        $user[] = json_decode($arr, true);
+        $user[] = json_decode($retvalue, true);
+        $json_merge = json_encode($user);
+        return $json_merge;
     }
 
-    // Close the statement and connection to free up resources
-    $stmt->close();
-    $conn->close();
 }
-
-?>
