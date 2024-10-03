@@ -38,7 +38,7 @@ if ($conn->connect_error) {
 
     // Prepare an SQL statement to select contact details where the user's input matches either first name, last name, or full name
     $stmt = $conn->prepare("SELECT ID, FirstName, LastName, Email,FROM Contacts WHERE LOWER(FirstName) like ?  AND User_ID = ?
-        order by name like concat(?, '%') desc, ifnull(nullif(INSTR(name, concat(' ', ?)), 0), 999999), ifnull(nullif(INSTR(name, ?), 0), 999999), name");
+        order by FirstName  like concat(?, '%') desc, ifnull(nullif(INSTR(name, concat(' ', ?)), 0), 999999), ifnull(nullif(INSTR(name, ?), 0), 999999), name");
 
     $stmt->bind_param("sisss", $paddedName, $inData["userId"], $inData["searchContactItem"] . "%"," " . $inData["searchContactItem"],  $inData["searchContactItem"]);
 
