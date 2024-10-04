@@ -44,6 +44,12 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
+.required-label {
+    color: red;
+    font-size: 15px;
+    margin-left: 2px;
+}
+
 /* Container for the button group */
 .button-group {
     display: flex;           /* Arrange buttons horizontally */
@@ -52,20 +58,68 @@ input[type="text"] {
     margin-top: 20px;        /* Add some space above the buttons */
 }
 
-/* Optional: Button styling for a consistent look */
-button {
-    padding: 10px 20px;
-    background-color: #4285F4;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+#contactsTable {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-button {
+
+#contactsTable thead {
+    position: sticky;
+    top: 0;
+    background-color: #eaf2f8; /* Ensure the background color is visible */
+    z-index: 1;
+}
+
+#contactsTable th, #contactsTable td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+#contactsTable th {
+    font-weight: bold;
+    background-color: #eaf2f8; /* Same background color for header */
+}
+
+/* Search bar */
+.search_bar {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 95%;
+}
+
+.search_bar > button > svg {
+    height: 21px;
+    width: 20px;
+}
+
+.search_bar > button {
+    cursor: pointer;
+}
+
+.search_bar > input[type="text"] {
+    height: 30px;
+}
+
+.search_bar > button:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.contact_list {
+    max-height: 50%;
+    overflow-y: scroll;
+}
+
+/* Optional: Button styling for a consistent look */
+.button-group > button {
+    cursor: pointer;
     width: 100%;
     padding: 10px;
-    background-color: #599be6;
+    background-color: #357AE8;
     color: white;
     border: none;
     border-radius: 4px;
@@ -97,4 +151,131 @@ button:hover {
 /* Hover effect for the logout button */
 #logout:hover {
     background-color: #f0f0f0;      /* Light gray background on hover */
+}
+
+ /* Popup styling */
+ .popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    
+}
+
+.popup h2 {
+    margin: 0;
+}
+
+.popup .close-btn {
+    margin-top: 20px;
+}
+
+/* Overlay for popup */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Styling for the input fields in the popup */
+.popup input[type="text"],
+.popup input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.popup .submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.popup .submit-btn:hover {
+    background-color: #45a049;
+}
+/* DataGrid table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+        /* Initially hide the contacts table */
+#contactsTable {
+    display: none;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 10px; /* Add space between the delete and edit button */
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+/* Styles for the edit button */
+.edit-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: darkgreen;
+}
+
+.save-btn {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.cancel-btn {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
 }

@@ -5,35 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up: Contact Manager</title>
     <link rel="stylesheet" href="css/register.css">
-    <script src="js/app.js"></script>
 </head>
 <body>
     <div class="register-container">
         <h1>Create an Account</h1>
         
         <!-- Form to submit the user data -->
-        <form id="registerForm">
-            <p>First Name</p>
-            <input type="text" name="firstName" id="firstname" required>
-
-            <p>Last Name</p>
-            <input type="text" name="lastName" id="lastname" required>
-
-            <p>Email</p>
-            <input type="email" name="email" id="email" required>
-
-            <p>Enter a Username</p>
-            <input type="text" name="loginName" id="user" required>
-
-            <p>Enter a Password</p>
-            <input type="password" name="loginPassword" id="password" required>
-
-            <!-- Submit button with onclick event -->
-            <p><button id="register" type="button" onclick="register();">Register</button></p>
+        <form id="registerForm" class="register">
+            <div class="field-input">
+                <label for="firstName">First Name<span class="required-label">*</span></label>
+                <input type="text" name="firstName" id="firstName" required placeholder="First Name">
+            </div>
+    
+            <div class="field-input">
+                <label for="lastName">Last Name<span class="required-label">*</span></label>
+                <input type="text" name="lastName" id="lastName" required placeholder="Last Name">
+            </div>
+    
+            <div class="field-input">
+                <label for="signupName">Username<span class="required-label">*</span></label>
+                <input type="text" name="signupName" id="signupName" required placeholder="Username">
+            </div>
+    
+            <div class="field-input">
+                <label for="signupPassword">Password<span class="required-label">*</span></label>
+                <input type="password" name="signupPassword" id="signupPassword" required placeholder="Password">
+            </div>
+            
+            <!-- Buttons for sign up -->
+            <div class="button-container">
+                <input type="submit" id="signupButton" value="Sign Up" class="button"/>
+            </div>
         </form>
 
-        <!-- Container for error messages -->
-        <div class="error-message"></div>
+        <!-- Centered "Have an account" text -->
+        <p class="center-text">Have an account? <a href="index.html">Return to Login</a></p>
     </div>
 </body>
+<script src="js/app.js"></script>
 </html>

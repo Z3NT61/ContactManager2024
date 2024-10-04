@@ -1,5 +1,5 @@
 body {
-    font-family: Poppins, sans-serif;
+    font-family: Times, sans-serif;
     background-image: url("background.jpg");
     background-position: center;
     background-size: cover;
@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+    min-height: 100vh;
 }
 
 .register-container {
@@ -18,57 +18,68 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 300px;
-    text-align: center;
-    margin: 40px 0; /* Adds space on top and bottom */
-    max-height: 90vh; /* Prevents it from taking more than 90% of the screen height */
-    overflow: auto; /* Ensures scroll if the content overflows the box */
+    width: 400px;
+    margin: 40px 0;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+.required-label {
+    color: red;
+    font-size: 15px;
+    margin-left: 2px;
 }
 
 h1 {
     font-size: 48px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+    text-align: center;
 }
 
-h3 {
-    font-size: 18px;
+.field-input {
     margin-bottom: 20px;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
+input[type="text"], input[type="password"] {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
-button {
+.button {
     width: 100%;
     padding: 10px;
-    background-color: #599be6;
+    background-color: #387fd1;
     color: white;
+    font-weight: lighter;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
 }
 
-button:hover {
+.button:hover {
     background-color: #285f9e;
 }
 
-p {
-    margin-top: 15px;
+/* Center the text */
+.center-text {
+    text-align: center;
+    margin-top: 20px;
 }
 
-a {
+.center-text a {
     color: #000000;
     text-decoration: none;
 }
 
-a:hover {
+.center-text a:hover {
+    color: #000000;
     text-decoration: underline;
 }
-

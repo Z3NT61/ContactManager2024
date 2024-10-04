@@ -11,12 +11,19 @@
         <h1>Contact Manager</h1>
         <h3>Login</h3>
         <!-- Form to submit the login credentials -->
-        <form method="POST" action="login.php">
-            <input type="text" name="user" id="user" placeholder="Username" required>
-            <input type="text" name="password" id="password" placeholder="Password" required>
+		<form id="loginForm" class="login">
 
-            <button id="login" type="submit">Sign in</button>
-        </form>
+            <div class="field-input"> 
+			    <input type="text" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="field-input">
+			    <input type="password" name="password" id="password" placeholder="Password" required> <!-- Changed to type="password" for security -->
+            </div>
+			<button id="loginButton" type="submit">Sign in</button> <!-- Use a submit button -->
+		</form>
+		
+		<!-- Add this span to show login results or errors -->
+		<span id="loginResult"></span>
 
         <p>Don't have an account? <a href="signup.html">Sign up</a></p>
     </div>
