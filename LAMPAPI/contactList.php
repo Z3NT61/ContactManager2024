@@ -35,8 +35,8 @@ if ($conn->connect_error) {
 } else {
     // Prepare a name pattern for SQL LIKE matching, including wildcard characters
     $paddedName = "%" . strtolower($inData["searchContactItem"]) . "%";
-    $getContacts = $conn->prepare("select * from CONTACTS where UserID = ?");
-    $getContacts->bind_param($inData["id"]);
+    $getContacts = $conn->prepare("select * from USERCONTACTS where UserID = ?");
+    $getContacts->bind_param("i", $inData["userId"]);
     // Prepare an SQL statement to select contact details where the user's input matches either first name, last name, or full name
     $getContacts->execute();
     $contactIDGet = $getContacts->get_result();
@@ -51,7 +51,7 @@ if ($conn->connect_error) {
         $data = $result->fetch_assoc();
         if($result->num_rows > 0){
             $contacts[] = [
-                'contactId' => $data['ContactID'],  // Include the ContactID in the response
+                'contactId' => $data['ID'],  // Include the ContactID in the response
                 'firstName' => $data['FirstName'],
                 'lastName' => $data['LastName'],
                 'email' => $data['Email']
@@ -60,7 +60,7 @@ if ($conn->connect_error) {
     }
 
     // Check if the query returned any rows
-    if ($contacts->num_rows > 0) {
+    if ($contacts) {
         // Fetch all results as an associative array
         returnWithInfo($contacts);
     } else {
@@ -68,7 +68,6 @@ if ($conn->connect_error) {
     }
 
     // Close the statement and connection to free up resources
-    $stmt->close();
     $conn->close();
 }
 
