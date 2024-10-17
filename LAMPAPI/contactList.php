@@ -35,22 +35,34 @@ if ($conn->connect_error) {
 } else {
     // Prepare a name pattern for SQL LIKE matching, including wildcard characters
     $paddedName = "%" . strtolower($inData["searchContactItem"]) . "%";
-
+    $getContacts = $conn->prepare("select ContactID from CONTACTS where UserID = ?");
+    $getContacts->bind_param($inData["userId"]);
     // Prepare an SQL statement to select contact details where the user's input matches either first name, last name, or full name
-    $stmt = $conn->prepare("SELECT * FROM CONTACTS WHERE (LOWER(FirstName) LIKE ? OR LOWER(LastName) LIKE ? OR LOWER(CONCAT(FirstName, ' ', LastName)) LIKE ?) AND ID = ?");
-    $stmt->bind_param("sssi", $paddedName, $paddedName, $paddedName, $inData["userId"]);
+    $getContacts->execute();
+    $contactIDGet = $getContacts->get_result();
+    $contacts = [];
+    while($row=$contactIDGet->fetch_assoc()){
+        $stmt = $conn->prepare("SELECT * FROM CONTACTS WHERE (LOWER(FirstName) LIKE ? OR LOWER(LastName) LIKE ? OR LOWER(CONCAT(FirstName, ' ', LastName)) LIKE ?) AND ID = ?");
+        $stmt->bind_param("sssi", $paddedName, $paddedName, $paddedName, $row["ContactID"]);
+        $stmt->execute();
 
-    // Execute the statement
-    $stmt->execute();
-
-    // Get the result of the query
-    $result = $stmt->get_result();
+        // Get the result of the query
+        $result = $stmt->get_result();
+        $data = $result->fetch_assoc();
+        if($result->num_rows > 0){
+            $contacts[] = [
+                'contactId' => $data['ContactID'],  // Include the ContactID in the response
+                'firstName' => $data['FirstName'],
+                'lastName' => $data['LastName'],
+                'email' => $data['Email']
+            ];
+        }
+    }
 
     // Check if the query returned any rows
-    if ($result->num_rows > 0) {
+    if ($contacts->num_rows > 0) {
         // Fetch all results as an associative array
-        $arr = $result->fetch_all(MYSQLI_ASSOC);
-        returnWithInfo($arr);
+        returnWithInfo($contacts);
     } else {
         returnWithError("No records found.");
     }
