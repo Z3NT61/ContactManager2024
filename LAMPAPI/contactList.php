@@ -35,7 +35,7 @@ if ($conn->connect_error) {
 } else {
     // Prepare a name pattern for SQL LIKE matching, including wildcard characters
     $paddedName = "%" . strtolower($inData["searchContactItem"]) . "%";
-    $getContacts = $conn->prepare("select ContactID from CONTACTS where UserID = ?");
+    $getContacts = $conn->prepare("select * from CONTACTS where UserID = ?");
     $getContacts->bind_param($inData["id"]);
     // Prepare an SQL statement to select contact details where the user's input matches either first name, last name, or full name
     $getContacts->execute();
