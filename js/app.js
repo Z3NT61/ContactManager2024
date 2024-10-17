@@ -454,7 +454,7 @@ document.getElementById("search").addEventListener("keyup", function () {
         let xhr = new XMLHttpRequest();
 
         let url = urlBase + '/contactList.' + extension;
-        
+
         xhr.open("POST", url, true); // Open a POST request
         xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); // Set content type
 
@@ -477,9 +477,9 @@ document.getElementById("search").addEventListener("keyup", function () {
                     result.forEach(contact => {
                         const row = document.createElement("tr");
                         row.innerHTML = `
-                            <td>${contact.FirstName}</td>
-                            <td>${contact.LastName}</td>
-                            <td>${contact.Email}</td>
+                            <td>${contact.firstName}</td>
+                            <td>${contact.lastName}</td>
+                            <td>${contact.email}</td>
                             <td><button class="delete-btn" onclick="deleteContact(${contact.ID})">Delete</button></td>
                         `;
                         tbody.appendChild(row);
